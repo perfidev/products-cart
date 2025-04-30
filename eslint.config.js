@@ -13,11 +13,5 @@ export default defineConfig([
     files: ["**/*.{js,mjs,cjs,jsx}"],
     languageOptions: { globals: globals.browser },
   },
-  {
-    rules: {
-      "no-unsed-vars": "warn",
-      "no-undef": "warn",
-    },
-  },
   pluginReact.configs.flat.recommended,
 ]);
