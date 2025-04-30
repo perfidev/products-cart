@@ -1,5 +1,6 @@
 import React from "react";
 import CartEmpty from "./components/cart/CartEmpty";
+import Cart from "./components/cart/Cart";
 
 function App() {
   return (
@@ -9,6 +10,7 @@ function App() {
 
         <aside>
           <CartEmpty />
+          <Cart />
         </aside>
       </main>
     </div>
