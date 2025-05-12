@@ -1,11 +1,13 @@
 import React from "react";
 
-function MenuItem() {
+function MenuItem({ product }) {
+  const { name, category, price, image_mobile } = product;
+
   return (
     <li>
       <div>
         <picture>
-          <img src="/images/image-waffle-mobile.jpg" alt="" />
+          <img src={image_mobile} alt="" />
         </picture>
 
         <button>
@@ -15,9 +17,9 @@ function MenuItem() {
       </div>
 
       <div>
-        <h3>Waffle</h3>
-        <p>Waffle with Berries</p>
-        <span>$6.50</span>
+        <h3>{category}</h3>
+        <p>{name}</p>
+        <span>${price}</span>
       </div>
     </li>
   );
