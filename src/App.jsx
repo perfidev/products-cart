@@ -4,7 +4,11 @@ import CartEmpty from "./components/cart/CartEmpty";
 import Cart from "./components/cart/Cart";
 import Order from "./components/order/Order";
 
+import { useCart } from "./contexts/CartContext";
+
 function App() {
+  const { state } = useCart();
+
   return (
     <div>
       <main>
@@ -14,10 +18,7 @@ function App() {
           <Menu />
         </section>
 
-        <aside>
-          <CartEmpty />
-          <Cart />
-        </aside>
+        <aside>{state.cart.length === 0 ? <CartEmpty /> : <Cart />}</aside>
 
         <Order />
       </main>

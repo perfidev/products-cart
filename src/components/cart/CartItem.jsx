@@ -1,18 +1,24 @@
 import React from "react";
 
-function CartItem() {
+import { useCart } from "../../contexts/CartContext";
+
+function CartItem({ item }) {
+  const { dispatch } = useCart();
+
   return (
     <li>
       <div>
-        <span>Classic Tiramisu</span>
+        <span>{item.name}</span>
         <div>
-          <span>1x</span>
-          <span>@ $5.50</span>
-          <span>$5.50</span>
+          <span>{item.quantity}x</span>
+          <span>@ ${item.price}</span>
+          <span>${item.totalPrice}</span>
         </div>
       </div>
 
-      <button>
+      <button
+        onClick={() => dispatch({ type: "cart/delete", payload: item.id })}
+      >
         <img src="/images/icon-remove-item.svg" alt="" />
       </button>
     </li>

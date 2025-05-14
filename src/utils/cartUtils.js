@@ -1,8 +1,10 @@
 export const getTotalCartQuantity = (cart) =>
-  cart.reduce((sum, item) => sum + item.quantity, 0);
+  Array.isArray(cart) ? cart.reduce((sum, item) => sum + item.quantity, 0) : 0;
 
 export const getTotalCartPrice = (cart) =>
-  cart.reduce((sum, item) => sum + item.totalPrice, 0);
+  Array.isArray(cart)
+    ? cart.reduce((sum, item) => sum + item.price * item.quantity, 0)
+    : 0;
 
 export const getCurrentQuantityById = (id, cart) =>
-  cart.find((item) => item.id === id)?.quantity ?? 0;
+  Array.isArray(cart) ? cart.find((item) => item.id === id)?.quantity ?? 0 : 0;
