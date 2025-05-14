@@ -21,7 +21,11 @@ function reducer(state, action) {
     case "cart/increaseQuantity":
       const updateIncrease = state.cart.map((item) =>
         item.id === action.payload
-          ? { ...item, quantity: item.quantity + 1 }
+          ? {
+              ...item,
+              quantity: item.quantity + 1,
+              totalPrice: (item.quantity + 1) * item.price,
+            }
           : item
       );
 
@@ -31,7 +35,11 @@ function reducer(state, action) {
       const updateDecrease = state.cart
         .map((item) =>
           item.id === action.payload
-            ? { ...item, quantity: item.quantity - 1 }
+            ? {
+                ...item,
+                quantity: item.quantity - 1,
+                totalPrice: (item.quantity - 1) * item.price,
+              }
             : item
         )
         .filter((item) => item.quantity > 0);

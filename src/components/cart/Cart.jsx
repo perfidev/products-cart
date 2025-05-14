@@ -1,20 +1,29 @@
 import React from "react";
 import CartItem from "./CartItem";
 
+import { useCart } from "../../contexts/CartContext";
+import { getTotalCartQuantity, getTotalCartPrice } from "../../utils/cartUtils";
+
 function Cart() {
+  const { state } = useCart();
+  const totalCartQuantity = getTotalCartQuantity(state.cart);
+  const totalCartPrice = getTotalCartPrice(state.cart);
+
   return (
     <div>
-      <h3>Your Cart (7)</h3>
+      <h3>Your Cart ({totalCartQuantity})</h3>
 
       <ul>
-        <CartItem />
+        {state.cart.map((item) => (
+          <CartItem key={item.id} item={item} />
+        ))}
       </ul>
 
       <hr />
 
       <div>
         <p>Order Total</p>
-        <span>$46.50</span>
+        <span>${totalCartPrice}</span>
       </div>
 
       <div>
