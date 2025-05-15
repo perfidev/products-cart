@@ -4,7 +4,7 @@ import CartItem from "./CartItem";
 import { useCart } from "../../contexts/CartContext";
 import { getTotalCartQuantity, getTotalCartPrice } from "../../utils/cartUtils";
 
-function Cart() {
+function Cart({ onShowModal }) {
   const { state } = useCart();
   const totalCartQuantity = getTotalCartQuantity(state.cart);
   const totalCartPrice = getTotalCartPrice(state.cart);
@@ -33,7 +33,7 @@ function Cart() {
         </p>
       </div>
 
-      <button>Confirm Order</button>
+      <button onClick={() => onShowModal(true)}>Confirm Order</button>
     </div>
   );
 }

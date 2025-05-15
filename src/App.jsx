@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Menu from "./components/menu/Menu";
 import CartEmpty from "./components/cart/CartEmpty";
 import Cart from "./components/cart/Cart";
@@ -9,6 +9,8 @@ import { useCart } from "./contexts/CartContext";
 function App() {
   const { state } = useCart();
 
+  const [showModal, setShowModal] = useState(false);
+
   return (
     <div>
       <main>
@@ -18,9 +20,15 @@ function App() {
           <Menu />
         </section>
 
-        <aside>{state.cart.length === 0 ? <CartEmpty /> : <Cart />}</aside>
+        <aside>
+          {state.cart.length === 0 ? (
+            <CartEmpty />
+          ) : (
+            <Cart onShowModal={setShowModal} />
+          )}
+        </aside>
 
-        <Order />
+        {showModal && <Order onShowModal={setShowModal} />}
       </main>
     </div>
   );

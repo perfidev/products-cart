@@ -1,7 +1,18 @@
 import React from "react";
 import OrderItem from "./OrderItem";
 
-function Order() {
+import { useCart } from "../../contexts/CartContext";
+import { getTotalCartPrice } from "../../utils/cartUtils";
+
+function Order({ onShowModal }) {
+  const { state, dispatch } = useCart();
+  const totalCartPrice = getTotalCartPrice(state.cart);
+
+  const handleNewOrder = () => {
+    dispatch({ type: "cart/clear" });
+    onShowModal(false);
+  };
+
   return (
     <div>
       <div>
@@ -16,18 +27,20 @@ function Order() {
 
         <div>
           <ul>
-            <OrderItem />
+            {state.cart.map((item) => (
+              <OrderItem key={item.id} item={item} />
+            ))}
           </ul>
 
           <hr />
 
           <div>
             <p>Order total</p>
-            <span>$46.50</span>
+            <span>${totalCartPrice}</span>
           </div>
         </div>
 
-        <button>Start New Order</button>
+        <button onClick={handleNewOrder}>Start New Order</button>
       </div>
     </div>
   );

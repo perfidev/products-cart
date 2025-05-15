@@ -1,21 +1,21 @@
 import React from "react";
 
-function OrderItem() {
+function OrderItem({ item }) {
   return (
     <li>
       <div>
-        <img src="/images/image-tiramisu-thumbnail.jpg" alt="" />
+        <img src={item.image} alt={item.name} />
 
         <div>
-          <p>Classic Tiramisu</p>
+          <p>{item.name}</p>
           <div>
-            <span>1x</span>
-            <span>@ $5.50</span>
+            <span>{item.quantity}x</span>
+            <span>@ ${item.price}</span>
           </div>
         </div>
       </div>
 
-      <span>$5.50</span>
+      <span>${item.totalPrice}</span>
     </li>
   );
 }
