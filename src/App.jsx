@@ -13,9 +13,11 @@ function App() {
 
   return (
     <div>
-      <main>
-        <section>
-          <h2>Desserts</h2>
+      <main className="relative flex flex-col gap-8">
+        <section className="flex flex-col gap-8">
+          <h2 className="text-[2.5rem] font-bold leading-[1.2] text-[#260f08]">
+            Desserts
+          </h2>
 
           <Menu />
         </section>

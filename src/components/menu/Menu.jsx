@@ -15,7 +15,7 @@ function Menu() {
   }, []);
 
   return (
-    <ul>
+    <ul className="flex flex-col gap-6">
       {products.map((product) => (
         <MenuItem key={product.id} product={product} />
       ))}
