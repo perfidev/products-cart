@@ -2,20 +2,28 @@ import React from "react";
 
 function OrderItem({ item }) {
   return (
-    <li>
-      <div>
-        <img src={item.image} alt={item.name} />
+    <li className="flex items-center gap-2 pb-4 border-b border-[#f5eeec] last:pb-0 last:border-b-0">
+      <div className="flex flex-1 gap-4">
+        <img src={item.image} alt={item.name} className="w-12 h-12" />
 
-        <div>
-          <p>{item.name}</p>
-          <div>
-            <span>{item.quantity}x</span>
-            <span>@ ${item.price}</span>
+        <div className="flex flex-col gap-2">
+          <p className="text-sm font-semibold leading-normal text-[#260f08]">
+            {item.name}
+          </p>
+          <div className="flex flex-row items-center gap-2">
+            <span className="text-base font-semibold leading-normal text-[#c73b0f]">
+              {item.quantity}x
+            </span>
+            <span className="text-base font-semibold leading-normal text-[#c73b0f]">
+              @ ${item.price}
+            </span>
           </div>
         </div>
       </div>
 
-      <span>${item.totalPrice}</span>
+      <span className="text-base font-semibold leading-normal text-[#c73b0f]">
+        ${item.totalPrice}
+      </span>
     </li>
   );
 }
