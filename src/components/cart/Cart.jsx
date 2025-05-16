@@ -3,6 +3,7 @@ import CartItem from "./CartItem";
 
 import { useCart } from "../../contexts/CartContext";
 import { getTotalCartQuantity, getTotalCartPrice } from "../../utils/cartUtils";
+import { formatCurrency } from "../../utils/helpers";
 
 function Cart({ onShowModal }) {
   const { state } = useCart();
@@ -28,7 +29,7 @@ function Cart({ onShowModal }) {
           Order Total
         </p>
         <span className="text-[1.5rem] font-bold leading-normal text-[#260f08]">
-          ${totalCartPrice}
+          {formatCurrency(totalCartPrice)}
         </span>
       </div>
 
