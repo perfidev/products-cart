@@ -1,4 +1,5 @@
 import React from "react";
+import { formatCurrency } from "../../utils/helpers";
 
 function OrderItem({ item }) {
   return (
@@ -15,14 +16,14 @@ function OrderItem({ item }) {
               {item.quantity}x
             </span>
             <span className="text-base font-semibold leading-normal text-[#c73b0f]">
-              @ ${item.price}
+              @ {formatCurrency(item.price)}
             </span>
           </div>
         </div>
       </div>
 
       <span className="text-base font-semibold leading-normal text-[#c73b0f]">
-        ${item.totalPrice}
+        {formatCurrency(item.totalPrice)}
       </span>
     </li>
   );

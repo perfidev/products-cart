@@ -1,6 +1,7 @@
 import React from "react";
 
 import { useCart } from "../../contexts/CartContext";
+import { formatCurrency } from "../../utils/helpers";
 
 function CartItem({ item }) {
   const { dispatch } = useCart();
@@ -16,10 +17,10 @@ function CartItem({ item }) {
             {item.quantity}x
           </span>
           <span className="text-sm font-normal leading-[1.4] text-[#87635a]">
-            @ ${item.price}
+            @ {formatCurrency(item.price)}
           </span>
           <span className="text-sm font-semibold leading-[1.4] text-[#87635a]">
-            ${item.totalPrice}
+            {formatCurrency(item.totalPrice)}
           </span>
         </div>
       </div>

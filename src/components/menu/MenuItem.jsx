@@ -1,6 +1,7 @@
 import React from "react";
 import { useCart } from "../../contexts/CartContext";
 import { getCurrentQuantityById } from "../../utils/cartUtils";
+import { formatCurrency } from "../../utils/helpers";
 
 function MenuItem({ product }) {
   const { state, dispatch } = useCart();
@@ -77,7 +78,7 @@ function MenuItem({ product }) {
           {product.name}
         </p>
         <span className="text-base font-semibold leading-normal text-[#c73b0f]">
-          ${product.price}
+          {formatCurrency(product.price)}
         </span>
       </div>
     </li>
