@@ -13,7 +13,7 @@ function App() {
 
   return (
     <div>
-      <main className="relative flex flex-col gap-8">
+      <main className="grid grid-rows-[auto] gap-8 max-w-[76rem] xl:grid-cols-[1fr_auto]">
         <section className="flex flex-col gap-8">
           <h2 className="text-[2.5rem] font-bold leading-[1.2] text-[#260f08]">
             Desserts
@@ -22,7 +22,7 @@ function App() {
           <Menu />
         </section>
 
-        <aside>
+        <aside className="p-6 rounded-[12px] bg-white xl:self-start xl:w-96">
           {state.cart.length === 0 ? (
             <CartEmpty />
           ) : (
