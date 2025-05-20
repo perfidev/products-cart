@@ -11,8 +11,8 @@ function Cart({ onShowModal }) {
   const totalCartPrice = getTotalCartPrice(state.cart);
 
   return (
-    <div className="flex flex-col gap-6 p-6 rounded-[12px] bg-white">
-      <h3 className="text-[1.5rem] font-bold leading-normal text-[#c73b07]">
+    <div className="flex flex-col gap-6">
+      <h3 className="text-xl font-bold leading-normal text-[#c73b07]">
         Your Cart ({totalCartQuantity})
       </h3>
 
@@ -43,7 +43,7 @@ function Cart({ onShowModal }) {
 
       <button
         onClick={() => onShowModal(true)}
-        className="w-full py-4 px-6 rounded-full border-0 bg-[#c73b0f] font-inherit text-base font-semibold leading-normal text-white"
+        className="w-full py-4 px-6 rounded-full border-0 bg-[#c73b0f] font-inherit text-base font-semibold leading-normal text-white cursor-pointer hover:bg-[#952c0b] focus-visible:bg-[#952c0b] focus-visible:outline-none"
       >
         Confirm Order
       </button>

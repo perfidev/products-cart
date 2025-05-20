@@ -16,7 +16,10 @@ function MenuItem({ product }) {
       quantity: 1,
       price: product.price,
       totalPrice: 1 * product.price,
-      image: product.image_mobile,
+      image_mobile: product.image_mobile,
+      image_tablet: product.image_tablet,
+      image_desktop: product.image_desktop,
+      image_thumnail: product.image_thumnail,
     };
     dispatch({
       type: "cart/add",
@@ -25,40 +28,67 @@ function MenuItem({ product }) {
   };
 
   return (
-    <li className="flex flex-col gap-4">
-      <div className="relative h-[14.625rem] overflow-hidden">
+    <li className="flex flex-col gap-[2.375rem]">
+      <div className="relative rounded-md">
         <picture>
-          <img
-            src={product.image_mobile}
-            alt={product.name}
-            className="relative block w-full rounded-[8px]"
-          />
+          <source srcSet={product.image_desktop} media="(min-width: 1024px)" />
+          <source srcSet={product.image_tablet} media="(min-width: 640px)" />
+          {isInCart ? (
+            <img
+              src={product.image_mobile}
+              alt={product.name}
+              className="block w-full h-auto object-cover object-center rounded-md border-[2px] border-[#c73b0f]"
+            />
+          ) : (
+            <img
+              src={product.image_mobile}
+              alt={product.name}
+              className="block w-full h-auto object-cover object-center rounded-md"
+            />
+          )}
         </picture>
 
         {isInCart ? (
-          <button>
+          <button
+            className="absolute bottom-[-1.375rem] left-1/2 -translate-x-1/2
+         flex items-center justify-between
+         w-40 p-3 rounded-full border-none
+         font-['Red_Hat_Text',sans-serif] text-sm font-semibold leading-normal
+         text-white
+         bg-[#c73b0f] 
+         shadow-[inset_0_0_0_1px_#c73b0f"
+            tabIndex={-1}
+          >
             <span
+              tabIndex={0}
+              role="button"
+              className="flex items-center justify-center w-5 h-5 p-[0.125rem] rounded-full border border-white cursor-pointer"
               onClick={() =>
                 dispatch({ type: "cart/decreaseQuantity", payload: product.id })
               }
             >
-              -
+              <img src="/images/icon-decrement-quantity.svg" alt="" />
             </span>
 
-            <span>{currentQuantity}</span>
+            <span className="text-sm font-semibold leading-normal text-white">
+              {currentQuantity}
+            </span>
 
             <span
+              tabIndex={0}
+              role="button"
+              className="flex items-center justify-center w-5 h-5 p-[0.125rem] rounded-full border border-white cursor-pointer"
               onClick={() =>
                 dispatch({ type: "cart/increaseQuantity", payload: product.id })
               }
             >
-              +
+              <img src="/images/icon-increment-quantity.svg" alt="" />
             </span>
           </button>
         ) : (
           <button
             onClick={handleAddToCart}
-            className="flex items-center justify-center gap-2 absolute bottom-0 left-1/2 -translate-x-1/2 w-40 p-3 border border-[#ad8a85] rounded-full bg-white cursor-pointer font-inherit text-sm font-semibold leading-normal text-[#260f08]"
+            className="absolute bottom-[-1.375rem] left-1/2 -translate-x-1/2 flex items-center justify-center gap-2 w-40 p-3 rounded-full border-none cursor-pointer font-[600] text-sm leading-none text-[#260f08] font-['Red_Hat_Text',sans-serif] bg-white shadow-[inset_0_0_0_1px_#ad8a85] hover:text-[#c73b0f] hover:shadow-[inset_0_0_0_1px_#c73b0f] focus:outline-none focus:text-[#c73b0f] focus:shadow-[inset_0_0_0_1px_#c73b0f]"
           >
             <img
               src="/images/icon-add-to-cart.svg"

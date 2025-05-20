@@ -26,7 +26,7 @@ function CartItem({ item }) {
       </div>
 
       <button
-        className="flex items-center justify-center w-5 h-5 rounded-full border border-[#ad8a85] text-[#ad8a85] bg-transparent"
+        className="flex items-center justify-center w-5 h-5 rounded-full border border-[#ad8a85] text-[#ad8a85] bg-transparent cursor-pointer"
         onClick={() => dispatch({ type: "cart/delete", payload: item.id })}
       >
         <img src="/images/icon-remove-item.svg" alt="" />
