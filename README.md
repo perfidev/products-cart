@@ -18,7 +18,7 @@ This is a single-page React project that simulates a functional shopping cart. I
 
 You can try out the live version of the app here:
 
-[Try Product List with Cart](https://)
+[Try Product List with Cart](https://products-cart-omega.vercel.app/)
 
 ## 🧑‍💻 Tech
 
