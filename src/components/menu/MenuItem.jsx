@@ -9,8 +9,7 @@ function MenuItem({ product }) {
   const currentQuantity = getCurrentQuantityById(product.id, state.cart);
   const isInCart = currentQuantity > 0;
   const isOutOfStock = product.quantity < 1;
-
-  console.log(isOutOfStock);
+  const maxQuantityReached = product.quantity <= currentQuantity;
 
   const handleAddToCart = () => {
     const cartItem = {
@@ -79,16 +78,28 @@ function MenuItem({ product }) {
               {currentQuantity}
             </span>
 
-            <span
-              tabIndex={0}
-              role="button"
-              className="flex items-center justify-center w-5 h-5 p-[0.125rem] rounded-full border border-white cursor-pointer"
-              onClick={() =>
-                dispatch({ type: "cart/increaseQuantity", payload: product.id })
-              }
-            >
-              <img src="/images/icon-increment-quantity.svg" alt="" />
-            </span>
+            {!maxQuantityReached ? (
+              <span
+                tabIndex={0}
+                role="button"
+                className="flex items-center justify-center w-5 h-5 p-[0.125rem] rounded-full border border-white cursor-pointer"
+                onClick={() =>
+                  dispatch({
+                    type: "cart/increaseQuantity",
+                    payload: product.id,
+                  })
+                }
+              >
+                <img src="/images/icon-increment-quantity.svg" alt="" />
+              </span>
+            ) : (
+              <span
+                className="flex items-center justify-center w-5 h-5 p-[0.125rem] rounded-full border border-white"
+                onClick={() => alert("you reached max quantity!")}
+              >
+                <img src="/images/icon-increment-quantity.svg" alt="" />
+              </span>
+            )}
           </button>
         ) : (
           <button
