@@ -5,10 +5,19 @@ import { useCart } from "../../contexts/CartContext";
 import { getTotalCartQuantity, getTotalCartPrice } from "../../utils/cartUtils";
 import { formatCurrency } from "../../utils/helpers";
 
+import { submitOrder } from "../../services/apiOrder";
+
 function Cart({ onShowModal }) {
   const { state } = useCart();
   const totalCartQuantity = getTotalCartQuantity(state.cart);
   const totalCartPrice = getTotalCartPrice(state.cart);
+
+  async function onConfirmOrder(cart, totalPrice, totalQuantity) {
+    const res = await submitOrder(cart, totalPrice, totalQuantity);
+
+    if (res?.error) alert("error");
+    else onShowModal(true);
+  }
 
   return (
     <div className="flex flex-col gap-6">
@@ -42,7 +51,9 @@ function Cart({ onShowModal }) {
       </div>
 
       <button
-        onClick={() => onShowModal(true)}
+        onClick={() =>
+          onConfirmOrder(state.cart, totalCartPrice, totalCartQuantity)
+        }
         className="w-full py-4 px-6 rounded-full border-0 bg-[#c73b0f] font-inherit text-base font-semibold leading-normal text-white cursor-pointer hover:bg-[#952c0b] focus-visible:bg-[#952c0b] focus-visible:outline-none"
       >
         Confirm Order
