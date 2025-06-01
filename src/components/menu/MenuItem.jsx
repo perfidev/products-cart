@@ -17,6 +17,7 @@ function MenuItem({ product }) {
       id: product.id,
       name: product.name,
       quantity: 1,
+      quantity_db: product.quantity,
       price: product.price,
       totalPrice: 1 * product.price,
       image_mobile: product.image_mobile,

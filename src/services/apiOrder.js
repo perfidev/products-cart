@@ -23,5 +23,14 @@ export async function submitOrder(cart, total, quantity) {
 
   if (orderItemsError) return orderItemsError;
 
+  for (const item of cart) {
+    const { error: productsError } = await supabase
+      .from("products")
+      .update({ quantity: item.quantity_db - item.quantity })
+      .eq("id", item.id);
+
+    if (productsError) return productsError;
+  }
+
   return { success: true };
 }
