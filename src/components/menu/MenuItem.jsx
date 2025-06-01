@@ -8,6 +8,9 @@ function MenuItem({ product }) {
 
   const currentQuantity = getCurrentQuantityById(product.id, state.cart);
   const isInCart = currentQuantity > 0;
+  const isOutOfStock = product.quantity < 1;
+
+  console.log(isOutOfStock);
 
   const handleAddToCart = () => {
     const cartItem = {
@@ -48,15 +51,16 @@ function MenuItem({ product }) {
           )}
         </picture>
 
-        {isInCart ? (
+        {isOutOfStock ? (
           <button
-            className="absolute bottom-[-1.375rem] left-1/2 -translate-x-1/2
-         flex items-center justify-between
-         w-40 p-3 rounded-full border-none
-         font-['Red_Hat_Text',sans-serif] text-sm font-semibold leading-normal
-         text-white
-         bg-[#c73b0f] 
-         shadow-[inset_0_0_0_1px_#c73b0f"
+            className="absolute bottom-[-1.375rem] left-1/2 -translate-x-1/2 flex items-center justify-center gap-2 w-40 p-3 rounded-full border-none font-[600] text-sm leading-none text-[#260f08] font-['Red_Hat_Text',sans-serif] bg-white shadow-[inset_0_0_0_1px_#ad8a85]"
+            disabled
+          >
+            Out of Stock
+          </button>
+        ) : isInCart ? (
+          <button
+            className="absolute bottom-[-1.375rem] left-1/2 -translate-x-1/2 flex items-center justify-between w-40 p-3 rounded-full border-none font-['Red_Hat_Text',sans-serif] text-sm font-semibold leading-normal text-white bg-[#c73b0f] shadow-[inset_0_0_0_1px_#c73b0f"
             tabIndex={-1}
           >
             <span
