@@ -6,11 +6,12 @@ import { getTotalCartPrice } from "../../utils/cartUtils";
 import { formatCurrency } from "../../utils/helpers";
 
 function Order({ onShowModal }) {
-  const { state, dispatch } = useCart();
+  const { state, dispatch, triggerRefreshProducts } = useCart();
   const totalCartPrice = getTotalCartPrice(state.cart);
 
   const handleNewOrder = () => {
     dispatch({ type: "cart/clear" });
+    triggerRefreshProducts();
     onShowModal(false);
   };
 

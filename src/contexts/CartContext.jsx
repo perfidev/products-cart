@@ -1,4 +1,4 @@
-import { createContext, useContext, useReducer } from "react";
+import { createContext, useContext, useReducer, useState } from "react";
 
 const initialState = {
   cart: [],
@@ -58,9 +58,16 @@ const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
+  const [shouldRefreshProducts, setShouldRefreshProducts] = useState(false);
+
+  function triggerRefreshProducts() {
+    setShouldRefreshProducts((prev) => !prev);
+  }
 
   return (
-    <CartContext.Provider value={{ state, dispatch }}>
+    <CartContext.Provider
+      value={{ state, dispatch, shouldRefreshProducts, triggerRefreshProducts }}
+    >
       {children}
     </CartContext.Provider>
   );
