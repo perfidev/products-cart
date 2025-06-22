@@ -12,27 +12,25 @@ function App() {
   const [showModal, setShowModal] = useState(false);
 
   return (
-    <div>
-      <main className="grid grid-rows-[auto] gap-8 max-w-[76rem] xl:grid-cols-[1fr_auto]">
-        <section className="flex flex-col gap-8">
-          <h2 className="text-[2.5rem] font-bold leading-[1.2] text-[#260f08]">
-            Desserts
-          </h2>
+    <main className="grid grid-rows-[auto] gap-8 w-full max-w-[76rem] mx-auto xl:grid-cols-[1fr_auto]">
+      <section className="flex flex-col gap-8">
+        <h2 className="text-[2.5rem] font-bold leading-[1.2] text-[#260f08]">
+          Desserts
+        </h2>
 
-          <Menu />
-        </section>
+        <Menu />
+      </section>
 
-        <aside className="p-6 rounded-[12px] bg-white xl:self-start xl:w-96">
-          {state.cart.length === 0 ? (
-            <CartEmpty />
-          ) : (
-            <Cart onShowModal={setShowModal} />
-          )}
-        </aside>
+      <aside className="p-6 rounded-[12px] bg-white xl:self-start xl:w-96">
+        {state.cart.length === 0 ? (
+          <CartEmpty />
+        ) : (
+          <Cart onShowModal={setShowModal} />
+        )}
+      </aside>
 
-        {showModal && <Order onShowModal={setShowModal} />}
-      </main>
-    </div>
+      {showModal && <Order onShowModal={setShowModal} />}
+    </main>
   );
 }
 
