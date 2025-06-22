@@ -1,7 +1,23 @@
-import { createContext, useContext, useReducer, useState } from "react";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useReducer,
+  useState,
+} from "react";
+
+const localStorageCart = () => {
+  try {
+    const cart = localStorage.getItem("cart");
+    return cart ? JSON.parse(cart) : [];
+  } catch (err) {
+    console.log(err);
+    return [];
+  }
+};
 
 const initialState = {
-  cart: [],
+  cart: localStorageCart(),
 };
 
 function reducer(state, action) {
@@ -63,6 +79,10 @@ export const CartProvider = ({ children }) => {
   function triggerRefreshProducts() {
     setShouldRefreshProducts((prev) => !prev);
   }
+
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(state.cart));
+  }, [state.cart]);
 
   return (
     <CartContext.Provider
