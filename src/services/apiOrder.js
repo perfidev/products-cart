@@ -1,15 +1,19 @@
-import supabase from "../supabase";
+import api from "./axios";
 
-export async function submitOrder(cart, total, quantity) {
-  const { data: order, error: orderError } = await supabase
-    .from("orders")
-    .insert([{ quantity: quantity, total: total }])
-    .select()
-    .single();
+export async function createOrder(quantity, total) {
+  const res = await api.post("/orders", [
+    {
+      quantity,
+      total,
+    },
+  ]);
+  const order = res.data[0];
 
-  if (orderError) return orderError;
+  return order;
+}
 
-  const orderItems = cart.map((item) => ({
+export async function createOrderItems(order, cart) {
+  const items = cart.map((item) => ({
     order_id: order.id,
     product_id: item.id,
     quantity: item.quantity,
@@ -17,20 +21,22 @@ export async function submitOrder(cart, total, quantity) {
     subtotal: item.totalPrice,
   }));
 
-  const { error: orderItemsError } = await supabase
-    .from("order_items")
-    .insert(orderItems);
+  await api.post("/order_items", items);
+}
 
-  if (orderItemsError) return orderItemsError;
+export async function updateItemsQuantity(cart) {
+  // for (const item of cart) {
+  //   const res = await api.patch(`/products?id=eq.${item.id}`, {
+  //     quantity: item.quantity_db - item.quantity,
+  //   });
+  // }
 
-  for (const item of cart) {
-    const { error: productsError } = await supabase
-      .from("products")
-      .update({ quantity: item.quantity_db - item.quantity })
-      .eq("id", item.id);
-
-    if (productsError) return productsError;
-  }
-
-  return { success: true };
+  // faster way
+  await Promise.all(
+    cart.map((item) =>
+      api.patch(`/products?id=eq.${item.id}`, {
+        quantity: item.quantity_db - item.quantity,
+      })
+    )
+  );
 }
