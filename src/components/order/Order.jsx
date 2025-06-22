@@ -10,6 +10,7 @@ function Order({ onShowModal }) {
   const totalCartPrice = getTotalCartPrice(state.cart);
 
   const handleNewOrder = () => {
+    localStorage.removeItem("cart");
     dispatch({ type: "cart/clear" });
     triggerRefreshProducts();
     onShowModal(false);

@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import MenuItem from "./MenuItem";
 import Loader from "../../ui/Loader";
 
-import { getProducts } from "../../services/apiProducts";
+import { getAllProducts } from "../../services/apiProducts";
 import { useCart } from "../../contexts/CartContext";
 
 function Menu() {
@@ -11,10 +11,10 @@ function Menu() {
   const { shouldRefreshProducts } = useCart();
 
   useEffect(() => {
-    async function fetchProducts() {
+    async function loadAllProducts() {
       try {
         setIsLoading(true);
-        const data = await getProducts();
+        const data = await getAllProducts();
         setProducts(data);
       } catch (err) {
         console.log(err);
@@ -22,7 +22,7 @@ function Menu() {
         setIsLoading(false);
       }
     }
-    fetchProducts();
+    loadAllProducts();
   }, [shouldRefreshProducts]);
 
   return isLoading ? (

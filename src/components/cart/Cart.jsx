@@ -5,7 +5,11 @@ import { useCart } from "../../contexts/CartContext";
 import { getTotalCartQuantity, getTotalCartPrice } from "../../utils/cartUtils";
 import { formatCurrency } from "../../utils/helpers";
 
-import { submitOrder } from "../../services/apiOrder";
+import {
+  createOrder,
+  createOrderItems,
+  updateItemsQuantity,
+} from "../../services/apiOrder";
 
 function Cart({ onShowModal }) {
   const { state } = useCart();
@@ -13,10 +17,15 @@ function Cart({ onShowModal }) {
   const totalCartPrice = getTotalCartPrice(state.cart);
 
   async function onConfirmOrder(cart, totalPrice, totalQuantity) {
-    const res = await submitOrder(cart, totalPrice, totalQuantity);
+    try {
+      const order = await createOrder(totalQuantity, totalPrice);
+      await createOrderItems(order, cart);
+      await updateItemsQuantity(cart);
 
-    if (res?.error) alert("error");
-    else onShowModal(true);
+      onShowModal(true);
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   return (

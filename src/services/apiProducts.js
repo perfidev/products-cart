@@ -1,12 +1,11 @@
-import supabase from "../supabase";
+import api from "./axios";
 
-export async function getProducts() {
-  const { data, error } = await supabase
-    .from("products")
-    .select("*")
-    .order("id", { ascending: true });
-
-  if (!error) return data;
-
-  return error;
+export async function getAllProducts() {
+  try {
+    const res = await api.get("/products?select=*&order=id.asc");
+    return res.data;
+  } catch (err) {
+    console.log(err);
+    return [];
+  }
 }
